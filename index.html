@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Megan Kuo — Data Science student at UW-Madison. Projects, research, and more." />
+  <title>Megan Kuo</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:    '#FFF8F0',
+            peach:    '#FFD6A5',
+            apricot:  '#FFB347',
+            babyblue: '#B8D4E8',
+            skyblue:  '#8BA4B8',
+            slate:    '#2D2D3F',
+            ink:      '#1A1A2E',
+          },
+          fontFamily: {
+            display: ['Quicksand', 'ui-sans-serif', 'system-ui'],
+            mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Quicksand', sans-serif; }
+
+    /* Pixel-art image rendering */
+    .pixel-render { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+    /* Pixel border using box-shadow trick */
+    .pixel-border {
+      box-shadow:
+        4px 0 0 0 #2D2D3F,
+        -4px 0 0 0 #2D2D3F,
+        0 4px 0 0 #2D2D3F,
+        0 -4px 0 0 #2D2D3F;
+    }
+
+    .pixel-border-sm {
+      box-shadow:
+        2px 0 0 0 #2D2D3F,
+        -2px 0 0 0 #2D2D3F,
+        0 2px 0 0 #2D2D3F,
+        0 -2px 0 0 #2D2D3F;
+    }
+
+    /* Subtle hover lift */
+    .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .hover-lift:hover { transform: translateY(-4px); }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Nav link underline animation */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #FFB347;
+      transition: width 0.2s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #FFF8F0; }
+    ::-webkit-scrollbar-thumb { background: #B8D4E8; border-radius: 4px; }
+
+    /* Tag pills */
+    .tag {
+      display: inline-block;
+      padding: 2px 10px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+      border-radius: 2px;
+      background: #FFD6A5;
+      color: #2D2D3F;
+    }
+
+    /* Dotted divider */
+    .dot-divider {
+      border: none;
+      border-top: 3px dotted #B8D4E8;
+      max-width: 120px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body class="bg-cream text-slate antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="w-full bg-cream/90 backdrop-blur-sm sticky top-0 z-40 border-b-2 border-slate/10">
+    <div class="max-w-4xl mx-auto flex items-center justify-between px-6 py-3">
+      <a href="#home" class="flex items-center gap-2 group" aria-label="Home">
+        <span class="font-bold text-lg font-display tracking-tight text-ink">megan kuo</span>
+      </a>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:block" aria-label="Primary">
+        <ul class="flex gap-8 font-mono text-sm font-bold">
+          <li><a href="#about" class="nav-link hover:text-apricot transition-colors">about</a></li>
+          <li><a href="#projects" class="nav-link hover:text-apricot transition-colors">projects</a></li>
+          <li><a href="#research" class="nav-link hover:text-apricot transition-colors">research</a></li>
+          <li><a href="#contact" class="nav-link hover:text-apricot transition-colors">contact</a></li>
+          <li><a href="assets/megan_kuo.pdf" target="_blank" rel="noopener" class="nav-link hover:text-apricot transition-colors">cv</a></li>
+        </ul>
+      </nav>
+      <!-- Mobile menu button -->
+      <button id="menuBtn" class="md:hidden p-2" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Nav -->
+    <nav id="mobileNav" class="hidden md:hidden border-t border-slate/10 bg-cream" aria-label="Mobile">
+      <ul class="flex flex-col px-6 py-4 gap-4 font-mono text-sm font-bold">
+        <li><a href="#about" class="hover:text-apricot">about</a></li>
+        <li><a href="#projects" class="hover:text-apricot">projects</a></li>
+        <li><a href="#research" class="hover:text-apricot">research</a></li>
+        <li><a href="#contact" class="hover:text-apricot">contact</a></li>
+        <li><a href="assets/megan_kuo.pdf" target="_blank" rel="noopener" class="hover:text-apricot">cv</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="w-full">
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="max-w-4xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+      <div class="flex flex-col items-center text-center">
+        <!-- Pixel Avatar -->
+        <div class="mb-8 pixel-border p-2 bg-white">
+          <img
+            src="assets/miffy_avatar.png"
+            alt="Pixel art bunny avatar drawn by Megan"
+            class="pixel-render w-40 h-40 md:w-52 md:h-52"
+          />
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold font-display text-ink mb-4 leading-tight">
+          Hi, I'm <span class="text-apricot">Megan</span>
+        </h1>
+
+        <p class="font-mono text-sm md:text-base text-skyblue mb-2">data science · UW-Madison '26</p>
+        <p class="text-slate/70 text-base md:text-lg max-w-xl mb-10 leading-relaxed">
+          I build data pipelines and microbiome research tools.
+        </p>
+
+        <div class="flex gap-4">
+          <a href="#projects" class="inline-block bg-apricot text-ink font-bold font-mono text-sm px-6 py-3 pixel-border-sm hover-lift">
+            view my work
+          </a>
+          <a href="#contact" class="inline-block bg-babyblue text-ink font-bold font-mono text-sm px-6 py-3 pixel-border-sm hover-lift">
+            say hello
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dot-divider" />
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="max-w-4xl mx-auto px-6 py-20 fade-in">
+      <h2 class="text-3xl font-bold font-display text-ink mb-8 text-center">About Me</h2>
+      <div class="flex flex-col md:flex-row gap-8 items-center md:items-stretch">
+        <div class="shrink-0">
+          <div class="pixel-border-sm p-1 bg-white h-full">
+            <img src="assets/megan_pic.jpg" alt="Photo of Megan" class="w-60 h-full object-cover" />
+          </div>
+        </div>
+        <div class="bg-white pixel-border-sm p-8 flex-1">
+          <p class="leading-relaxed mb-4">
+            I'm a data science student at the <strong>University of Wisconsin–Madison</strong> graduating in May 2026. I love building end-to-end data systems — from ETL pipelines to interactive tools that make complex data explorable.
+          </p>
+          <p class="leading-relaxed mb-4">
+            As a teaching assistant for CS320 (Data Science Programming II) with <a href="https://pages.cs.wisc.edu/~gurmail-singh/Gurmail.html" target="_blank" rel="noopener" class="text-apricot font-bold hover:underline">Professor Gurmail Singh</a>, I help 400+ students reason about data structures, testing, and reproducible analysis. On the research side, I contributed to <strong>phylobar</strong>, an open-source visualization package for omics data with <a href="https://measurement-and-microbes.org/" target="_blank" rel="noopener" class="text-apricot font-bold hover:underline">Professor Kris Sankaran</a>.
+          </p>
+          <p class="leading-relaxed text-slate/60 font-mono text-sm">
+            Based in Cupertino, CA 
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dot-divider" />
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="max-w-4xl mx-auto px-6 py-20 fade-in">
+      <h2 class="text-3xl font-bold font-display text-ink mb-4 text-center">Projects</h2>
+      <p class="text-center text-slate/60 font-mono text-sm mb-12">things i've built</p>
+
+      <div class="grid gap-8 md:grid-cols-2">
+
+        <!-- Project 1: EDGAR -->
+        <article class="bg-white pixel-border-sm p-6 hover-lift group">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xl">📄</span>
+            <h3 class="text-xl font-bold font-display text-ink group-hover:text-apricot transition-colors">EDGAR Document Search</h3>
+          </div>
+          <p class="font-mono text-xs text-skyblue mb-3">Jan 2026</p>
+          <p class="text-sm leading-relaxed mb-4 text-slate/80">
+            End-to-end ETL pipeline ingesting SEC EDGAR filings into DuckDB with dbt models and 54 automated data-quality tests. Features an OpenSearch index across 8,000+ documents and a RAG-style Streamlit UI with cited responses via Gemini.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Python</span>
+            <span class="tag">DuckDB</span>
+            <span class="tag">dbt</span>
+            <span class="tag">OpenSearch</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Streamlit</span>
+          </div>
+          <a href="https://github.com/mkdiro-O/edgar-search-pipeline" target="_blank" rel="noopener" class="inline-block mt-4 font-mono text-sm text-apricot font-bold hover:underline">
+            GitHub →
+          </a>
+        </article>
+
+        <!-- Project 2: Grading App -->
+        <article class="bg-white pixel-border-sm p-6 hover-lift group">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xl">✏️</span>
+            <h3 class="text-xl font-bold font-display text-ink group-hover:text-apricot transition-colors">AI Spelling/Essay Grader</h3>
+          </div>
+          <p class="font-mono text-xs text-skyblue mb-3">Aug 2025</p>
+          <p class="text-sm leading-relaxed mb-4 text-slate/80">
+            Backend service that processes handwritten image uploads via OCR, scores them with deterministic rules, and outputs structured JSON. Features schema validation, error analytics, and grading-quality metrics.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Flask</span>
+            <span class="tag">OCR</span>
+            <span class="tag">AWS S3</span>
+            <span class="tag">DynamoDB</span>
+            <span class="tag">REST API</span>
+          </div>
+          <a href="http://essay-grader-frontend.s3-website.ap-east-1.amazonaws.com/login" target="_blank" rel="noopener" class="inline-block mt-4 font-mono text-sm text-apricot font-bold hover:underline">
+            visit site →
+          </a>
+        </article>
+
+
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="https://github.com/mkdiro-O" target="_blank" rel="noopener" class="inline-block font-mono text-sm text-ink bg-peach px-6 py-3 pixel-border-sm hover-lift font-bold">
+          more on github →
+        </a>
+      </div>
+    </section>
+
+    <hr class="dot-divider" />
+
+    <!-- ===== RESEARCH ===== -->
+    <section id="research" class="max-w-4xl mx-auto px-6 py-20 fade-in">
+      <h2 class="text-3xl font-bold font-display text-ink mb-4 text-center">Research & Publication</h2>
+      <p class="text-center text-slate/60 font-mono text-sm mb-12">academic work</p>
+
+      <article class="bg-white pixel-border-sm p-8 max-w-2xl mx-auto">
+        <div class="flex items-start gap-3 mb-4">
+          <span class="text-2xl mt-1">🔬</span>
+          <div>
+            <h3 class="text-xl font-bold font-display text-ink leading-snug">
+              phylobar: an R package for multiresolution compositional barplots in omics studies
+            </h3>
+            <p class="font-mono text-xs text-skyblue mt-1">Accepted March 2026</p>
+          </div>
+        </div>
+
+        <p class="text-sm text-slate/60 mb-4">
+          Megan Kuo, Kim-Anh Lê Cao, Saritha Kodikara, Jiadong Mao, Kris Sankaran
+        </p>
+
+        <div class="mb-4 pixel-border-sm p-1 bg-cream">
+          <img src="assets/phylobar-gif.gif" alt="phylobar interactive demo" class="w-full" />
+        </div>
+
+        <p class="text-sm leading-relaxed mb-4 text-slate/80">
+          An R package that interactively links stacked barplots with overview phylogenetic or taxonomic hierarchies. The interface allows users to collapse or expand subtrees, paint color palettes interactively, and search for specific taxa — enabling comparison across taxonomic resolutions hidden in static overviews. Works with any omics data with hierarchical organization, demonstrated with immune cell composition in COVID-19 patients. Built with htmlwidgets and D3, embeddable in R Markdown or Quarto notebooks, with vector graphics export.
+        </p>
+
+        <p class="text-sm text-slate/60 mb-4">
+          <span class="font-bold">Tools:</span> R, D3.js, htmlwidgets
+        </p>
+
+        <div class="flex gap-4 font-mono text-sm">
+          <a href="https://www.biorxiv.org/content/10.1101/2025.11.05.686662v1" target="_blank" rel="noopener" class="text-apricot font-bold hover:underline">bioRxiv →</a>
+          <a href="https://github.com/mkdiro-O/phylobar" target="_blank" rel="noopener" class="text-apricot font-bold hover:underline">GitHub →</a>
+        </div>
+      </article>
+    </section>
+
+    <hr class="dot-divider" />
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="max-w-4xl mx-auto px-6 py-20 fade-in">
+      <h2 class="text-3xl font-bold font-display text-ink mb-4 text-center">Get in Touch</h2>
+      <p class="text-center text-slate/60 font-mono text-sm mb-12">let's connect</p>
+
+      <div class="bg-babyblue/30 pixel-border-sm p-8 max-w-md mx-auto text-center">
+        <p class="mb-8 leading-relaxed">
+          I'd love to hear about collaborations, internships, or just chat about data.
+        </p>
+
+        <div class="flex justify-center gap-6">
+          <!-- Email -->
+          <a href="mailto:mkuo22@wisc.edu" class="flex flex-col items-center gap-2 group hover-lift" aria-label="Email">
+            <div class="w-12 h-12 bg-white pixel-border-sm flex items-center justify-center text-xl group-hover:bg-peach transition-colors">
+              ✉️
+            </div>
+            <span class="font-mono text-xs">email</span>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/megankuo" target="_blank" rel="noopener" class="flex flex-col items-center gap-2 group hover-lift" aria-label="LinkedIn">
+            <div class="w-12 h-12 bg-white pixel-border-sm flex items-center justify-center text-xl group-hover:bg-peach transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </div>
+            <span class="font-mono text-xs">linkedin</span>
+          </a>
+          <!-- GitHub -->
+          <a href="https://github.com/mkdiro-O" target="_blank" rel="noopener" class="flex flex-col items-center gap-2 group hover-lift" aria-label="GitHub">
+            <div class="w-12 h-12 bg-white pixel-border-sm flex items-center justify-center text-xl group-hover:bg-peach transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.486 2 12.021c0 4.424 2.865 8.18 6.839 9.504.5.093.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.34-3.369-1.34-.455-1.158-1.11-1.467-1.11-1.467-.908-.62.069-.608.069-.608 1.003.071 1.531 1.032 1.531 1.032.892 1.531 2.341 1.089 2.91.833.09-.647.35-1.089.636-1.34-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.27.098-2.648 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.503.338 1.91-1.296 2.75-1.026 2.75-1.026.545 1.378.202 2.395.1 2.648.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.944.359.31.679.92.679 1.854 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.025 10.025 0 0022 12.021C22 6.486 17.523 2 12 2Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span class="font-mono text-xs">github</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="py-10 text-center">
+    <p class="font-mono text-xs text-slate/40">
+      made with care by megan kuo · 2026
+    </p>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    // Mobile nav toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = !mobileNav.classList.contains('hidden');
+      mobileNav.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+
+    // Close mobile nav on link click
+    mobileNav?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Scroll fade-in observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
